@@ -74,6 +74,8 @@ def sample_classes(df, classes=None):
         sample = random.sample(df.class_label.unique(), classes)
     elif type(classes) is list:
         sample = classes
+    elif type(classes) is map:
+        sample = list(classes)
     else:
         raise Exception("Type of classes not recognized.")
     selected_classes = df.class_label.isin(sample)
@@ -116,6 +118,8 @@ def trim_cross_comparison(df1, df2, num_insts, num_classes):
 
 def trim_sample_df(df, num_insts, classes):
     df = trim_df(df, num_insts)
+    print(df.head())
+    print(classes)
     df = sample_classes(df, classes)
 
     # restart index
@@ -367,7 +371,7 @@ def load_data(path=DEFAULT_PICKLE_FILE, pickle=True):
         else:
             df = parse_directory(path)
             dataset = basename(normpath(path))
-            PICKLE_FILE = join(DATA_DIR, '%s.pickle' % dataset)
+            PICKLE_FILE = join(DATA_DIR, "pickles",'%s.pickle' % dataset)
             if pickle:
                 pickle_path = PICKLE_FILE
                 if type(pickle) is str:
@@ -435,7 +439,8 @@ def parse_directory(dpath):
             row_head['fname'] = os.path.basename(fpath)
             row_head['class_label'] = webpage_id
             row_head['lengths'] = lengths
-            idx = idx.append(row_head, ignore_index=True)
+            idx = pd.concat([idx, pd.DataFrame([row_head])], ignore_index=True)
+            # idx = idx.append(row_head, ignore_index=True)
         print(i, 'sites in', fpath)
     print("Empty traces:", empties)
 
