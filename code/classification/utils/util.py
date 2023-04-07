@@ -16,7 +16,7 @@ from functools import partial
 BASE_DIR = abspath(join(dirname(__file__), pardir, pardir, pardir))
 CODE_DIR = join(BASE_DIR, 'code')
 COLLEC_DIR = join(CODE_DIR, 'collection')
-ALL_URL_LIST = join(COLLEC_DIR, 'short_list_500')
+ALL_URL_LIST = join(COLLEC_DIR, 'short_list_1500')
 
 # MATH FUNCTIONS:
 def harmonic_mean(x, y, factor=1.0):
@@ -86,14 +86,14 @@ def trim_cross_comparison(df1, df2, num_insts, num_classes):
     df2_trimmed = trim_df(df2, num_insts)
     result_insts1 = get_num_instances(df1_trimmed).unique()[0]
     result_insts2 = get_num_instances(df2_trimmed).unique()[0]
-    print "Num instances df1, df2:", result_insts1, result_insts2
+    print("Num instances df1, df2:", result_insts1, result_insts2)
 
     # take a sample from the classes left that are in common
     df1_cl = set(df1_trimmed.class_label)
     df2_cl = set(df2_trimmed.class_label)
     intersection_cl = df1_cl.intersection(df2_cl)
     classes = random.sample(intersection_cl, num_classes)
-    print "Num classes in common:", len(intersection_cl)
+    print("Num classes in common:", len(intersection_cl))
 
     # sample the instances that belongs to the list of selected classes
     df1_sampled = sample_classes(df1_trimmed, classes)
@@ -108,7 +108,7 @@ def trim_cross_comparison(df1, df2, num_insts, num_classes):
     result_classes1 = set(df1_sampled.class_label)
     result_classes2 = set(df2_sampled.class_label)
     diff_classes = set(result_classes1).difference(result_classes2)
-    print "Difference in classes", len(diff_classes)
+    print("Difference in classes", len(diff_classes))
     assert len(diff_classes) == 0
 
     return df1_sampled, df2_sampled
@@ -128,8 +128,8 @@ def trim_sample_df(df, num_insts, classes):
 def assert_dataset_size(df, num_insts, num_classes):
     df_num_insts = get_num_instances(df).unique()[0]
     df_num_classes = get_num_classes(df)
-    print df_num_insts, "==", num_insts
-    print df_num_classes, "==", num_classes
+    print(df_num_insts, "==", num_insts)
+    print(df_num_classes, "==", num_classes)
     assert df_num_insts == num_insts
     assert df_num_classes == num_classes
 
@@ -180,7 +180,7 @@ def optimal_instances_per_class(df, factor=1.0, draw=False):
     hms = [harmonic_mean(x, y, factor) if y > 0 and x > 0 else 0
            for x, y in zip(bin_edges[1:], inv_cum_hist)]
 
-    print hms
+    print(hms)
 
     # find index for max harmonic mean
     i = np.argmax(hms)
@@ -192,8 +192,8 @@ def optimal_instances_per_class(df, factor=1.0, draw=False):
     opt_num_classes = len(counts[counts >= opt_num_insts])
 
     if draw:
-        print "Optimal number of instances:", opt_num_insts
-        print "Optimal number of classes:", opt_num_classes
+        print("Optimal number of instances:", opt_num_insts)
+        print("Optimal number of classes:", opt_num_classes)
 
     return opt_num_insts, opt_num_classes
 
@@ -361,7 +361,7 @@ def load_data(path=DEFAULT_PICKLE_FILE, pickle=True):
                for p in path]
         return pd.concat(dfs)
     elif type(path) is str:
-        print "Loading", path
+        print("Loading", path)
         if os.path.isfile(path):
             df = pd.read_pickle(path)
         else:
@@ -372,7 +372,7 @@ def load_data(path=DEFAULT_PICKLE_FILE, pickle=True):
                 pickle_path = PICKLE_FILE
                 if type(pickle) is str:
                     pickle_path = pickle
-                print "Pickling to", pickle_path
+                print("Pickling to", pickle_path)
                 df.to_pickle(pickle_path)
         return df
 
@@ -382,24 +382,26 @@ def it_webpages(fpath):
     with open(fpath) as f:
         data_dict = json.loads(f.read())
         try:
-            for pcap_filename, values in data_dict.iteritems():
+            for pcap_filename, values in data_dict.items():
                 webpage_num = pcap_filename[:-5]
                 snd, rcv = values['sent'], values['received']
                 order = values['order']
                 lengths = recover_order(*map(np.array, [snd, rcv, order]))
                 yield webpage_num, lengths
         except KeyError:
-            print fpath, "does not have a known order sequence"
+            print(fpath, "does not have a known order sequence")
             return
             yield
         except Exception as e:
-            print "ERROR:", fpath, pcap_filename, e
+            print("ERROR:", fpath, e)
 
 
 def sel_files(dpath):
     """Yield files that satisfy conditions."""
     sel_files = []
+    print("Traversing", dpath)
     for root, _, files in os.walk(dpath):
+        print(files)        
         for fname in files:
             if not fname.endswith('.json'):  # skip non-json files
                 continue
@@ -412,9 +414,9 @@ def parse_directory(dpath):
 
     Returns a dataframe containing encoded lengths.
     """
-    print "Starting to parse"
+    print("Starting to parse", dpath)
     selected_files = sel_files(dpath)
-    print "Number of selected files", len(selected_files)
+    print("Number of selected files", len(selected_files))
 
     # iterave over selected files and build dataframe
     empties = 0
@@ -422,9 +424,10 @@ def parse_directory(dpath):
     for fpath in selected_files:
         m = FNAME_REGEX.search(fpath)
         if m is None:
-            print "ERROR:", fpath, FNAME_REGEX.pattern
+            print("ERROR:", fpath, FNAME_REGEX.pattern)
             continue
-        row_head = {k: m.group(k) for k in PATH_REGEX.iterkeys()}
+        row_head = {k: m.group(k) for k in PATH_REGEX}
+        i=0
         for i, (webpage_id, lengths) in enumerate(it_webpages(fpath)):
             if len(lengths) == 0:
                 empties += 1
@@ -433,8 +436,8 @@ def parse_directory(dpath):
             row_head['class_label'] = webpage_id
             row_head['lengths'] = lengths
             idx = idx.append(row_head, ignore_index=True)
-        print i, 'sites in', fpath
-    print "Empty traces:", empties
+        print(i, 'sites in', fpath)
+    print("Empty traces:", empties)
 
     # fix some naming issues:
     idx['inst'] = idx.inst.fillna(0)

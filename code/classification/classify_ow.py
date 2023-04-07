@@ -56,7 +56,7 @@ def ow_experiment():
 	""" Function to run open world experiment. Creates monitored and unmonitored datasets from the LOC1 and OW datasets."""
 
 	if not os.path.isdir(RESULTS_DIR):
-        os.makedirs(RESULTS_DIR)
+    	os.makedirs(RESULTS_DIR)
 	
 	#Load closed and open world data
 	if os.path.isfile(PICKLE_PATH_CLOSED):

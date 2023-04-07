@@ -17,6 +17,7 @@ import time
 
 
 BASE_DIR = abspath(join(dirname(__file__), pardir, pardir))
+print(BASE_DIR)
 DATA_DIR = join(BASE_DIR, 'dataset')
 CODE_DIR = join(BASE_DIR, 'code')
 COLLEC_DIR = join(CODE_DIR, 'collection')
@@ -24,7 +25,7 @@ CLASSIF_DIR = join(CODE_DIR, 'classification')
 RESULTS_DIR = join(BASE_DIR, 'results')
 
 STRANGE_URLS_LIST = join(DATA_DIR, 'strange_urls', 'strange_urls_shortlist')
-ALL_URL_LIST = join(COLLEC_DIR, 'short_list_500')
+ALL_URL_LIST = join(COLLEC_DIR, 'short_list_1500')
 
 def print_stats_paper(report,  output, avg='macro avg', stats=['mean', 'std']):
     """Function to print overall statistics. Mean/Std of Precision/Recall/F-Score"""
@@ -146,7 +147,7 @@ def get_url_list(url_list):
 
 def time_experiment():
     """Performs the time experiment with LOC1 dataset (Section 5C of the paper)"""
-    dataset = 'loc1'
+    dataset = 'LOC1'
     data_dir = join(DATA_DIR, dataset)
     pickle_path = join(CLASSIF_DIR, '%s.pickle' % dataset)
     urls = get_url_list(ALL_URL_LIST)
@@ -155,7 +156,6 @@ def time_experiment():
         df = load_data(path=pickle_path)
     else:
         df = load_data(path=data_dir)
-
     num_samples = 20
     num_classes = 1500
     
@@ -191,8 +191,8 @@ def rpi_experiment(remove_bad=False):
     data_dir_pi = join(DATA_DIR, dataset)
     pickle_path_pi = join(DATA_DIR, '%s.pickle' % pickd)
     #Input data for Desktop
-    dataset = 'loc1'
-    pickd = 'loc1'
+    dataset = 'LOC1'
+    pickd = 'LOC1'
     data_dir = join(DATA_DIR, dataset)
     pickle_path = join(DATA_DIR, '%s.pickle' % pickd)
 
@@ -254,7 +254,7 @@ def rpi_experiment(remove_bad=False):
 def normal_experiment(remove_bad=False):
     """Performs the base experiment with LOC1 dataset (Section 5A of the paper)"""
 
-    dataset = 'loc1'
+    dataset = 'LOC1'
     data_dir = join(DATA_DIR, dataset)
     pickle_path = join(DATA_DIR, 'pickles', '%s.pickle' % dataset)
     print(pickle_path)
