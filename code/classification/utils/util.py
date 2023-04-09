@@ -425,6 +425,10 @@ def parse_directory(dpath):
     # iterave over selected files and build dataframe
     empties = 0
     idx = pd.DataFrame(columns=PATH_REGEX.keys())
+    # parallelize this for loop
+    from joblib import Parallel, delayed
+    import multiprocessing
+    
     for fpath in selected_files:
         m = FNAME_REGEX.search(fpath)
         if m is None:
