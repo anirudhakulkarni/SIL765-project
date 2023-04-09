@@ -10,7 +10,7 @@ from sklearn.model_selection import KFold
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 
 from pipeline.ngrams_classif import NgramsExtractor
-from pipeline.tsfresh_basic import TSFreshBasicExtractor
+# from pipeline.tsfresh_basic import TSFreshBasicExtractor
 from model import CNNClassifier
 from utils.util import *
 import time
