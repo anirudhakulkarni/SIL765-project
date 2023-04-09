@@ -11,7 +11,7 @@ from sklearn.metrics import classification_report, accuracy_score, confusion_mat
 
 from pipeline.ngrams_classif import NgramsExtractor
 from pipeline.tsfresh_basic import TSFreshBasicExtractor
-
+from model import CNNClassifier
 from utils.util import *
 import time
 
@@ -79,43 +79,59 @@ def cross_classify(df1, df2, output_acc1, output_acc2, folds=10):
 
 def classify(train, test, output_acc, output_prob=""):
     """Function that runs the classification pipeline."""
-    # Feature extraction methods. Add/delete as required.
-    combinedFeatures = FeatureUnion([
-       #('tsfresh', TSFreshBasicExtractor()),
-      ('ngrams', NgramsExtractor(max_ngram_len=1)),
-    ], n_jobs=-1)
+    # print("Training set size:", len(train))
+    # print(train)
+    # # print lengths column of 1st 10 rows
+    # for i in range(10):
+    #     print(len(train.iloc[i]['lengths']))
+    # # Feature extraction methods. Add/delete as required.
+    # combinedFeatures = FeatureUnion([
+    #    #('tsfresh', TSFreshBasicExtractor()),
+    #   ('ngrams', NgramsExtractor(max_ngram_len=1)),
+    # ], n_jobs=-1)
+    # print(combinedFeatures.fit(train, train.class_label))
+    # # Pipeline. Feature extraction + classification
+    # pipeline = Pipeline([
+    #   ('features', combinedFeatures),
+    #   ('clf', RandomForestClassifier(n_estimators=100))
+    # ])
 
-    # Pipeline. Feature extraction + classification
-    pipeline = Pipeline([
-      ('features', combinedFeatures),
-      ('clf', RandomForestClassifier(n_estimators=100))
-    ])
+    # # Training with pipeline
+    # pipeline.fit(train, train.class_label)
+    # # Prediction
+    # y_pred = pipeline.predict(test)
 
-    # Training with pipeline
-    pipeline.fit(train, train.class_label)
-    # Prediction
-    y_pred = pipeline.predict(test)
+    # #If we want to print probabilities (for OW experiment)
+    # if len(output_prob) > 0:
+    #     y_pred_prob = pipeline.predict_proba(test)
+    #     with open(output_prob, "w") as f:
+    #       class_names = [x for x in pipeline.classes_]
+    #       s = '|'.join(class_names)
+    #       f.write("Truth | " + s + "\n")
+    #       truth_labels = list(test.class_label)
+    #       for i in range(0, len(y_pred_prob)):
+    #           preds = [str(x) for x in y_pred_prob[i]]
+    #           preds = '|'.join(preds)
+    #           f.write(truth_labels[i] +  " | " + preds + "\n")
 
-    #If we want to print probabilities (for OW experiment)
-    if len(output_prob) > 0:
-        y_pred_prob = pipeline.predict_proba(test)
-        with open(output_prob, "w") as f:
-          class_names = [x for x in pipeline.classes_]
-          s = '|'.join(class_names)
-          f.write("Truth | " + s + "\n")
-          truth_labels = list(test.class_label)
-          for i in range(0, len(y_pred_prob)):
-              preds = [str(x) for x in y_pred_prob[i]]
-              preds = '|'.join(preds)
-              f.write(truth_labels[i] +  " | " + preds + "\n")
-
-    acc = accuracy_score(test.class_label, y_pred)
-    print("Accuracy Score:", acc)
-    with open(output_acc, "a") as f:
-        f.write("Accuracy Score: " + str(acc))
-
+    # acc = accuracy_score(test.class_label, y_pred)
+    # print("Accuracy Score:", acc)
+    # with open(output_acc, "a") as f:
+    #     f.write("Accuracy Score: " + str(acc))
+    
+    # CNN model classification
+    num_class = len(set(train.class_label))
+    model = CNNClassifier(num_class, train.lengths, train.class_label, test.lengths, test.class_label)
+    model.train()
+    y_pred = model.predict()
     return list(test.class_label), list(y_pred)
 
+def classify_with_gpu(train, test, output_acc, output_prob=""):
+    '''Function that runs the classification pipeline with GPU.'''
+    import torch
+    # train a simple model with 5 layers to classify 1500 classes
+    # model = torch.nn.Sequential(
+    #     torch.nn.Linear(
 
 def remove_strange(df, shortlist, urls):
     """Function to perform data cleaning by removing strange URLs."""

@@ -20,6 +20,10 @@ class NgramsExtractor:
 
     def fit(self, x, y=None):
         bursts = x.lengths.apply(get_bursts)
+        print("X: ", x)
+        print("Bursts: ", bursts)
+        print("Packet counter: ",x.lengths.apply(join_str))
+        print("Burst counter: ",bursts.apply(join_str))
         self.packet_counter.fit(x.lengths.apply(join_str))
         self.burst_counter.fit(bursts.apply(join_str))
         return self
