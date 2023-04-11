@@ -25,109 +25,19 @@ class CNN(nn.Module):
         self.pool1 = nn.MaxPool1d(kernel_size=8, stride=4, padding=2)
         self.dropout1 = nn.Dropout(p=0.1)
         
-        # Block 2
-        self.conv3 = nn.Conv1d(in_channels=32, out_channels=64, kernel_size=8, stride=1, padding=4)
-        self.bn3 = nn.BatchNorm1d(num_features=64)
-        self.relu1 = nn.ReLU()
-        self.conv4 = nn.Conv1d(in_channels=64, out_channels=64, kernel_size=8, stride=1, padding=4)
-        self.bn4 = nn.BatchNorm1d(num_features=64)
-        self.relu2 = nn.ReLU()
-        self.pool2 = nn.MaxPool1d(kernel_size=8, stride=4, padding=2)
-        self.dropout2 = nn.Dropout(p=0.1)
-        
-        # Block 3
-        self.conv5 = nn.Conv1d(in_channels=64, out_channels=128, kernel_size=8, stride=1, padding=4)
-        self.bn5 = nn.BatchNorm1d(num_features=128)
-        self.relu3 = nn.ReLU()
-        self.conv6 = nn.Conv1d(in_channels=128, out_channels=128, kernel_size=8, stride=1, padding=4)
-        self.bn6 = nn.BatchNorm1d(num_features=128)
-        self.relu4 = nn.ReLU()
-        self.pool3 = nn.MaxPool1d(kernel_size=8, stride=4, padding=2)
-        self.dropout3 = nn.Dropout(p=0.1)
-        
-        # Block 4
-        self.conv7 = nn.Conv1d(in_channels=128, out_channels=256, kernel_size=8, stride=1, padding=4)
-        self.bn7 = nn.BatchNorm1d(num_features=256)
-        self.relu5 = nn.ReLU()
-        self.conv8 = nn.Conv1d(in_channels=256, out_channels=256, kernel_size=8, stride=1, padding=4)
-        self.bn8 = nn.BatchNorm1d(num_features=256)
-        self.relu6 = nn.ReLU()
-        self.pool4 = nn.MaxPool1d(kernel_size=8, stride=4, padding=2)
-        self.dropout4 = nn.Dropout(p=0.1)
-        
         # Fully connected layers
         
-        self.fc1 = nn.Linear(in_features=1024, out_features=512)
-        self.bn9 = nn.BatchNorm1d(num_features=512)
+        self.fc1 = nn.Linear(in_features=1024, out_features=256)
+        self.bn9 = nn.BatchNorm1d(num_features=256)
         self.relu7 = nn.ReLU()
         self.dropout5 = nn.Dropout(p=0.7)
-        self.fc2 = nn.Linear(in_features=512, out_features=512)
-        self.bn10 = nn.BatchNorm1d(num_features=512)
-        self.relu8 = nn.ReLU()
-        self.dropout6 = nn.Dropout(p=0.5)
-        self.fc3 = nn.Linear(in_features=512, out_features=1500)
+        self.fc3 = nn.Linear(in_features=256, out_features=1500)
         self.softmax = nn.Softmax(dim=1)
         
     def forward(self, x):
-        # Block 1
-        x = self.conv1(x)
-        x = self.bn1(x)
-        x = self.elu1(x)
-        x = self.conv2(x)
-        x = self.bn2(x)
-        x = self.elu2(x)
-        x = self.pool1(x)
-        x = self.dropout1(x)
-        
-        # Block 2
-        x = self.conv3(x)
-        x = self.bn3(x)
-        x = self.relu1(x)
-        x = self.conv4(x)
-        x = self.bn4(x)
-        x = self.relu2(x)
-        x = self.pool2(x)
-        x = self.dropout2(x)
-        
-        # Block 3
-        x = self.conv5(x)
-        x = self.bn5(x)
-        x = self.relu3(x)
-        x = self.conv6(x)
-        x = self.bn6(x)
-        x = self.relu4(x)
-        x = self.pool3(x)
-        x = self.dropout3(x)
-        
-        # Block 4
-        x = self.conv7(x)
-        x = self.bn7(x)
-        x = self.relu5(x)
-        x = self.conv8(x)
-        x = self.bn8(x)
-        x = self.relu6(x)
-        x = self.pool4(x)
-        x = self.dropout4(x)
-        
-        # Flatten
-        x = x.view(x.size(0), -1)
-        
-        # Fully connected layers
-        # print(x.shape)
-        x = self.fc1(x)
-        x = self.bn9(x)
-        x = self.relu7(x)
-        x = self.dropout5(x)
-        x = self.fc2(x)
-        x = self.bn10(x)
-        x = self.relu8(x)
-        x = self.dropout6(x)
-        x = self.fc3(x)
-        x = self.softmax(x)
         
         return x
        
-
 
 
 
@@ -186,7 +96,8 @@ class CNNClassifier:
             for data, labels in self.dataloader:
                 # data = data.permute(1,0)
                 data = data.unsqueeze(1)
-                # print(data.shape)
+                print(data.shape)
+                print(data)
                 data = data.to(self.device)
                 labels = labels.to(self.device)
                 # print(labels.min(), labels.max())
