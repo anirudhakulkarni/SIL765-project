@@ -89,11 +89,12 @@ def classify(train, test, output_acc, output_prob=""):
        #('tsfresh', TSFreshBasicExtractor()),
       ('ngrams', NgramsExtractor(max_ngram_len=1)),
     ], n_jobs=-1)
-    print(combinedFeatures.fit(train, train.class_label))
+    combinedFeatures.fit(train, train.class_label)
+    print("features fit done...")
     # Pipeline. Feature extraction + classification
     pipeline = Pipeline([
       ('features', combinedFeatures),
-      ('clf', RandomForestClassifier(n_estimators=100))
+      ('clf', RandomForestClassifier(n_estimators=100,n_jobs=-1))
     ])
 
     # Training with pipeline
@@ -163,7 +164,7 @@ def get_url_list(url_list):
 
 def time_experiment():
     """Performs the time experiment with LOC1 dataset (Section 5C of the paper)"""
-    dataset = 'LOC1'
+    dataset = 'LOC3'
     data_dir = join(DATA_DIR, dataset)
     pickle_path = join(CLASSIF_DIR,"/pickles/", '%s.pickle' % dataset)
     urls = get_url_list(ALL_URL_LIST)
@@ -270,7 +271,7 @@ def rpi_experiment(remove_bad=False):
 def normal_experiment(remove_bad=False):
     """Performs the base experiment with LOC1 dataset (Section 5A of the paper)"""
 
-    dataset = 'LOC1'
+    dataset = 'LOC3'
     data_dir = join(DATA_DIR, dataset)
     pickle_path = join(DATA_DIR, 'pickles', '%s.pickle' % dataset)
     print(pickle_path)

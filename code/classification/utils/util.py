@@ -450,8 +450,13 @@ def parse_directory(dpath):
 
     # fix some naming issues:
     idx['inst'] = idx.inst.fillna(0)
-    idx['date'] = pd.to_datetime(idx.date.str.replace('-18', '-2018'),
-                                 format='%d-%m-%Y')
+    try:
+        idx['date'] = pd.to_datetime(idx.date.str.replace('-18', '-2018'),
+                                    format='%d-%m-%Y')
+    except:
+        idx['date'] = pd.to_datetime(idx.date.str.replace('-19', '-2019'),
+                            format='%d-%m-%Y')
+
     #idx['dev'] = idx.dev.replace('browse', 'desktop')
     #idx.loc[idx.sites == 'desktop', ['dev', 'sites']] = ['desktop', None]
     return idx

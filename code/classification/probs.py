@@ -228,7 +228,7 @@ if __name__ == '__main__':
     # run on the all files present in directory="../../dataset/pickles/probs/"
     # and save the results in csv
     
-    files = os.listdir("../../dataset/pickles/prob/")
+    files = os.listdir("../../dataset/pickles/select")
     files = [file for file in files if file.endswith(".pickle")]
     print(files)
     results = []
@@ -238,12 +238,18 @@ if __name__ == '__main__':
     import multiprocessing
     pool = multiprocessing.Pool(processes=8)
     for file in files:
-        print(file)
-        results.append(pool.apply_async(run, args=(os.path.join("../../dataset/pickles/prob/", file), gpuid)))
+        print(file,gpuid)
+        results.append(pool.apply_async(run, args=(os.path.join("../../dataset/pickles/select/", file), gpuid)))
         gpuid = (gpuid+1)%maxgpu
     pool.close()
     pool.join()
-    results = [p.get() for p in results]
+    final_results=[]
+    for p in results:
+        try:
+            results.append(p.get())
+        except:
+            pass
+    # results = [p.get() for p in results]
     print(results)
     import pandas as pd
     df = pd.DataFrame(results)

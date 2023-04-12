@@ -1,11 +1,39 @@
-,file,test_acc,precision,recall,f1
-0,../../dataset/pickles/prob/LOC3.pickle,80.20137477006486,0.8111444706778744,0.8057795828020131,0.7971041720071103
-1,../../dataset/pickles/prob/LOC3_first50.pickle,79.16222932197373,0.8012738397931741,0.7951753519342234,0.7864897861327693
-2,../../dataset/pickles/prob/LOC3_dummy_80.pickle,62.35195404524478,0.6320567334190041,0.6260068469945202,0.6181196834261564
-3,../../dataset/pickles/prob/LOC3_dummy_100.pickle,71.98825313841289,0.7309130271869735,0.7227982731791489,0.714781856105827
-4,../../dataset/pickles/prob/LOC3_dummy.pickle,70.21976958079195,0.7126941613997666,0.704398479422131,0.6970458253777682
-5,../../dataset/pickles/prob/LOC3_dummy_20.pickle,61.086907412786005,0.6201511740661629,0.6126071770341289,0.6055940023205407
-6,../../dataset/pickles/prob/LOC3_outgoing_first50.pickle,84.77103301384452,0.8444499238370111,0.8509186200356301,0.8368929474137664
-7,../../dataset/pickles/prob/LOC3_dummy_40.pickle,55.93313324942718,0.5671681828898105,0.5615120314408059,0.5532932706228402
-8,../../dataset/pickles/prob/LOC3_dummy_10.pickle,63.865491980507954,0.6472473033874011,0.6415738921107724,0.633077359366629
-9,../../dataset/pickles/prob/LOC3_outgoing.pickle,83.44144318585214,0.8310555871355119,0.8370216873834648,0.8225400736276728
+,0
+0,<multiprocessing.pool.ApplyResult object at 0x7f3b7f16e490>
+1,<multiprocessing.pool.ApplyResult object at 0x7f3b7f16e670>
+2,<multiprocessing.pool.ApplyResult object at 0x7f3b7f16e790>
+3,<multiprocessing.pool.ApplyResult object at 0x7f3b7f16e8b0>
+4,<multiprocessing.pool.ApplyResult object at 0x7f3b7f16e9d0>
+5,<multiprocessing.pool.ApplyResult object at 0x7f3b7f16e5b0>
+6,<multiprocessing.pool.ApplyResult object at 0x7f3b7f16ec10>
+7,<multiprocessing.pool.ApplyResult object at 0x7f3b7f16ed30>
+8,<multiprocessing.pool.ApplyResult object at 0x7f3b7f16eb80>
+9,<multiprocessing.pool.ApplyResult object at 0x7f3b7f16eee0>
+10,<multiprocessing.pool.ApplyResult object at 0x7f3b7f1770d0>
+11,<multiprocessing.pool.ApplyResult object at 0x7f3b7f1771f0>
+12,<multiprocessing.pool.ApplyResult object at 0x7f3b7f16efd0>
+13,<multiprocessing.pool.ApplyResult object at 0x7f3b7f1773a0>
+14,<multiprocessing.pool.ApplyResult object at 0x7f3b7f177550>
+15,<multiprocessing.pool.ApplyResult object at 0x7f3b7f177670>
+16,<multiprocessing.pool.ApplyResult object at 0x7f3b7f1774c0>
+17,<multiprocessing.pool.ApplyResult object at 0x7f3b7f1778b0>
+18,<multiprocessing.pool.ApplyResult object at 0x7f3b7f1779d0>
+19,"{'file': '../../dataset/pickles/select/LOC3.pickle', 'test_acc': 79.42685642366153, 'precision': 0.8028529050902186, 'recall': 0.796391256335688, 'f1': 0.788760343502825}"
+20,"{'file': '../../dataset/pickles/select/LOC3_first50.pickle', 'test_acc': 78.39093813534708, 'precision': 0.7891573654531759, 'recall': 0.7855815452794508, 'f1': 0.7754645571974512}"
+21,"{'file': '../../dataset/pickles/select/LOC3_dummy_80.pickle', 'test_acc': 62.484267596088685, 'precision': 0.634223672844922, 'recall': 0.6266637282388425, 'f1': 0.619851324032819}"
+22,"{'file': '../../dataset/pickles/select/LOC3_perfect_padding.pickle', 'test_acc': 37.30919417820376, 'precision': 0.37757595129850097, 'recall': 0.374037332120348, 'f1': 0.36105649180029953}"
+23,"{'file': '../../dataset/pickles/select/LOC3_padding_128.pickle', 'test_acc': 49.007648368670736, 'precision': 0.49936286812300773, 'recall': 0.4903803886156484, 'f1': 0.48052870094129546}"
+24,"{'file': '../../dataset/pickles/select/LOC3_dummy_100.pickle', 'test_acc': 72.32387775518765, 'precision': 0.7321083731602609, 'recall': 0.7247501877818281, 'f1': 0.7154891184583158}"
+25,"{'file': '../../dataset/pickles/select/LOC3_dummy_20.pickle', 'test_acc': 61.49352954464776, 'precision': 0.6243916752279224, 'recall': 0.6156891909847, 'f1': 0.6079897162616866}"
+26,"{'file': '../../dataset/pickles/select/LOC3_outgoing_first50.pickle', 'test_acc': 84.64840094233065, 'precision': 0.842725014603711, 'recall': 0.8476597293334734, 'f1': 0.8344452915198557}"
+27,"{'file': '../../dataset/pickles/select/LOC3_dummy_40.pickle', 'test_acc': 54.27437312421338, 'precision': 0.552686470713094, 'recall': 0.546033589780117, 'f1': 0.5378656479048409}"
+28,"{'file': '../../dataset/pickles/select/LOC3_dummy_10.pickle', 'test_acc': 65.95669151579695, 'precision': 0.6703539753887415, 'recall': 0.6622907251787615, 'f1': 0.6548009448444719}"
+29,"{'file': '../../dataset/pickles/select/EDNS0-128-adblock.pickle', 'test_acc': 9.49353212014909, 'precision': 0.09539162717602423, 'recall': 0.09533661180089752, 'f1': 0.08727167650011355}"
+30,"{'file': '../../dataset/pickles/select/LOC3_same.pickle', 'test_acc': 80.42082163487915, 'precision': 0.8157240259978931, 'recall': 0.8075209480420672, 'f1': 0.8000082188548483}"
+31,"{'file': '../../dataset/pickles/select/LOC3_padding_64.pickle', 'test_acc': 69.38393519863169, 'precision': 0.7056084162974561, 'recall': 0.6965229131508825, 'f1': 0.6892120689153028}"
+32,"{'file': '../../dataset/pickles/select/LOC3_selective_padding_top10.pickle', 'test_acc': 62.30031948881789, 'precision': 0.6338714686963068, 'recall': 0.6251988329810112, 'f1': 0.6178188268066958}"
+33,"{'file': '../../dataset/pickles/select/LOC3_incoming_first50.pickle', 'test_acc': 71.18469035401942, 'precision': 0.7224361109041779, 'recall': 0.7145760449150278, 'f1': 0.7038575200656634}"
+34,"{'file': '../../dataset/pickles/select/LOC3_incoming.pickle', 'test_acc': 68.77400200083906, 'precision': 0.7023705521569857, 'recall': 0.6922155783451911, 'f1': 0.6806603542082155}"
+35,"{'file': '../../dataset/pickles/select/LOC3_selective_padding_first25.pickle', 'test_acc': 56.159034433794815, 'precision': 0.5720978079886698, 'recall': 0.5625601521093186, 'f1': 0.55389536782548}"
+36,"{'file': '../../dataset/pickles/select/LOC3_padding_256.pickle', 'test_acc': 50.11779133184884, 'precision': 0.5147519674954234, 'recall': 0.5032381777299907, 'f1': 0.49565817971881126}"
+37,"{'file': '../../dataset/pickles/select/LOC3_outgoing.pickle', 'test_acc': 84.48058863394327, 'precision': 0.8384240546866362, 'recall': 0.8472467270107715, 'f1': 0.8328918735182216}"
