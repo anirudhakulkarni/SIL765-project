@@ -1,5 +1,6 @@
 # Encrypted DNS --> Privacy? A Traffic Analysis Perspective
 
+
 This repository contains the datasets and code used in the paper "Encrypted DNS --> Privacy? A Traffic Analysis Perspective". The paper will appear at the Network and Distributed System Security Symposium (NDSS) 2020.
 
 Authors: Sandra Siby, Marc Juarez, Claudia Diaz, Narseo Vallina-Rodriguez, Carmela Troncoso
